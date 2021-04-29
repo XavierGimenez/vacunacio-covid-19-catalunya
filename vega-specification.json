@@ -1,0 +1,491 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "",
+  "height": 400,
+  "padding": 15,
+  "title":{
+    "text": "Vacunació per al COVID-19 per franja d'edat",
+    "offset": 32,
+    "fontSize": 20,
+    "color": "#444444"
+  },
+  "signals": [
+    {"name": "chartWidth", "value": 375},
+    {"name": "chartPad", "value": 55},
+    {"name": "width", "update": "2 * chartWidth + chartPad"},
+    {"name": "shareOpacity", "value": 0.5},
+    {"name": "barColor", "value": "#eaeaea"},
+    {"name": "colorDose1", "value": "#BC3A5C"},
+    {"name": "colorDose2", "value": "#540032"},
+    {"name": "bandDose1", "value": 1},
+    {"name": "bandDose2", "value": 1},
+    {"name": "shareSize", "value": 6}
+  ],
+  "data": [
+    {
+      "name": "population",
+      "values": [
+        {"Edat": "0 a 14", "Total": 1179015, "SEXE": "Homes", "value": 607966},
+        {"Edat": "0 a 14", "Total": 1179015, "SEXE": "Dones", "value": 571049},
+        {"Edat": "15 a 19", "Total": 403787, "SEXE": "Homes", "value": 210527},
+        {"Edat": "15 a 19", "Total": 403787, "SEXE": "Dones", "value": 193260},
+        {"Edat": "20 a 24", "Total": 396095, "SEXE": "Homes", "value": 205008},
+        {"Edat": "20 a 24", "Total": 396095, "SEXE": "Dones", "value": 191087},
+        {"Edat": "25 a 29", "Total": 437154, "SEXE": "Homes", "value": 221110},
+        {"Edat": "25 a 29", "Total": 437154, "SEXE": "Dones", "value": 216044},
+        {"Edat": "30 a 34", "Total": 466105, "SEXE": "Homes", "value": 231001},
+        {"Edat": "30 a 34", "Total": 466105, "SEXE": "Dones", "value": 235104},
+        {"Edat": "35 a 39", "Total": 545384, "SEXE": "Homes", "value": 270896},
+        {"Edat": "35 a 39", "Total": 545384, "SEXE": "Dones", "value": 274488},
+        {"Edat": "40 a 44", "Total": 660208, "SEXE": "Homes", "value": 334557},
+        {"Edat": "40 a 44", "Total": 660208, "SEXE": "Dones", "value": 325651},
+        {"Edat": "45 a 49", "Total": 637292, "SEXE": "Homes", "value": 324031},
+        {"Edat": "45 a 49", "Total": 637292, "SEXE": "Dones", "value": 313261},
+        {"Edat": "50 a 54", "Total": 572553, "SEXE": "Homes", "value": 287566},
+        {"Edat": "50 a 54", "Total": 572553, "SEXE": "Dones", "value": 284987},
+        {"Edat": "55 a 59", "Total": 511459, "SEXE": "Homes", "value": 250527},
+        {"Edat": "55 a 59", "Total": 511459, "SEXE": "Dones", "value": 260932},
+        {"Edat": "60 a 64", "Total": 448996, "SEXE": "Homes", "value": 215143},
+        {"Edat": "60 a 64", "Total": 448996, "SEXE": "Dones", "value": 233853},
+        {"Edat": "65 a 69", "Total": 383497, "SEXE": "Homes", "value": 180096},
+        {"Edat": "65 a 69", "Total": 383497, "SEXE": "Dones", "value": 203401},
+        {"Edat": "70 a 74", "Total": 355540, "SEXE": "Homes", "value": 162768},
+        {"Edat": "70 a 74", "Total": 355540, "SEXE": "Dones", "value": 192772},
+        {"Edat": "75 a 79", "Total": 277535, "SEXE": "Homes", "value": 122915},
+        {"Edat": "75 a 79", "Total": 277535, "SEXE": "Dones", "value": 154620},
+        {"Edat": "80 o més", "Total": 447583, "SEXE": "Homes", "value": 163573},
+        {"Edat": "80 o més", "Total": 447583, "SEXE": "Dones", "value": 284010}
+      ]
+    },
+    {
+      "name": "males",
+      "source": "population",
+      "transform": [{"type": "filter", "expr": "datum.SEXE == 'Homes'"}]
+    },
+    {
+      "name": "females",
+      "source": "population",
+      "transform": [{"type": "filter", "expr": "datum.SEXE == 'Dones'"}]
+    },
+    {
+      "name": "ageGroups",
+      "source": "population",
+      "transform": [{"type": "aggregate", "groupby": ["Edat"]}]
+    },
+    {
+      "name": "vaccinated",
+      "values": [
+        {"SEXE": "Dona", "EDAT": "0 a 14", "DOSI": 1, "n": 7},
+        {"SEXE": "Dona", "EDAT": "0 a 14", "DOSI": 2, "n": 2},
+        {"SEXE": "Dona", "EDAT": "15 a 19", "DOSI": 1, "n": 4864},
+        {"SEXE": "Dona", "EDAT": "15 a 19", "DOSI": 2, "n": 2325},
+        {"SEXE": "Dona", "EDAT": "20 a 24", "DOSI": 1, "n": 26118},
+        {"SEXE": "Dona", "EDAT": "20 a 24", "DOSI": 2, "n": 12860},
+        {"SEXE": "Dona", "EDAT": "25 a 29", "DOSI": 1, "n": 33023},
+        {"SEXE": "Dona", "EDAT": "25 a 29", "DOSI": 2, "n": 16241},
+        {"SEXE": "Dona", "EDAT": "30 a 34", "DOSI": 1, "n": 32589},
+        {"SEXE": "Dona", "EDAT": "30 a 34", "DOSI": 2, "n": 15086},
+        {"SEXE": "Dona", "EDAT": "35 a 39", "DOSI": 1, "n": 38711},
+        {"SEXE": "Dona", "EDAT": "35 a 39", "DOSI": 2, "n": 17674},
+        {"SEXE": "Dona", "EDAT": "40 a 44", "DOSI": 1, "n": 51171},
+        {"SEXE": "Dona", "EDAT": "40 a 44", "DOSI": 2, "n": 23577},
+        {"SEXE": "Dona", "EDAT": "45 a 49", "DOSI": 1, "n": 52075},
+        {"SEXE": "Dona", "EDAT": "45 a 49", "DOSI": 2, "n": 24561},
+        {"SEXE": "Dona", "EDAT": "50 a 54", "DOSI": 1, "n": 51248},
+        {"SEXE": "Dona", "EDAT": "50 a 54", "DOSI": 2, "n": 24532},
+        {"SEXE": "Dona", "EDAT": "55 a 59", "DOSI": 1, "n": 44362},
+        {"SEXE": "Dona", "EDAT": "55 a 59", "DOSI": 2, "n": 26500},
+        {"SEXE": "Dona", "EDAT": "60 a 64", "DOSI": 1, "n": 150319},
+        {"SEXE": "Dona", "EDAT": "60 a 64", "DOSI": 2, "n": 22358},
+        {"SEXE": "Dona", "EDAT": "65 a 69", "DOSI": 1, "n": 78277},
+        {"SEXE": "Dona", "EDAT": "65 a 69", "DOSI": 2, "n": 9671},
+        {"SEXE": "Dona", "EDAT": "70 a 74", "DOSI": 1, "n": 66745},
+        {"SEXE": "Dona", "EDAT": "70 a 74", "DOSI": 2, "n": 8940},
+        {"SEXE": "Dona", "EDAT": "75 a 79", "DOSI": 1, "n": 131950},
+        {"SEXE": "Dona", "EDAT": "75 a 79", "DOSI": 2, "n": 15502},
+        {"SEXE": "Dona", "EDAT": "80 o més", "DOSI": 1, "n": 260258},
+        {"SEXE": "Dona", "EDAT": "80 o més", "DOSI": 2, "n": 196431},
+        {"SEXE": "Home", "EDAT": "0 a 14", "DOSI": 1, "n": 6},
+        {"SEXE": "Home", "EDAT": "0 a 14", "DOSI": 2, "n": 2},
+        {"SEXE": "Home", "EDAT": "15 a 19", "DOSI": 1, "n": 2227},
+        {"SEXE": "Home", "EDAT": "15 a 19", "DOSI": 2, "n": 1075},
+        {"SEXE": "Home", "EDAT": "20 a 24", "DOSI": 1, "n": 10038},
+        {"SEXE": "Home", "EDAT": "20 a 24", "DOSI": 2, "n": 4787},
+        {"SEXE": "Home", "EDAT": "25 a 29", "DOSI": 1, "n": 13821},
+        {"SEXE": "Home", "EDAT": "25 a 29", "DOSI": 2, "n": 6552},
+        {"SEXE": "Home", "EDAT": "30 a 34", "DOSI": 1, "n": 15318},
+        {"SEXE": "Home", "EDAT": "30 a 34", "DOSI": 2, "n": 6529},
+        {"SEXE": "Home", "EDAT": "35 a 39", "DOSI": 1, "n": 18420},
+        {"SEXE": "Home", "EDAT": "35 a 39", "DOSI": 2, "n": 7002},
+        {"SEXE": "Home", "EDAT": "40 a 44", "DOSI": 1, "n": 24653},
+        {"SEXE": "Home", "EDAT": "40 a 44", "DOSI": 2, "n": 8723},
+        {"SEXE": "Home", "EDAT": "45 a 49", "DOSI": 1, "n": 25302},
+        {"SEXE": "Home", "EDAT": "45 a 49", "DOSI": 2, "n": 9190},
+        {"SEXE": "Home", "EDAT": "50 a 54", "DOSI": 1, "n": 23805},
+        {"SEXE": "Home", "EDAT": "50 a 54", "DOSI": 2, "n": 9770},
+        {"SEXE": "Home", "EDAT": "55 a 59", "DOSI": 1, "n": 22988},
+        {"SEXE": "Home", "EDAT": "55 a 59", "DOSI": 2, "n": 11617},
+        {"SEXE": "Home", "EDAT": "60 a 64", "DOSI": 1, "n": 143013},
+        {"SEXE": "Home", "EDAT": "60 a 64", "DOSI": 2, "n": 11999},
+        {"SEXE": "Home", "EDAT": "65 a 69", "DOSI": 1, "n": 77874},
+        {"SEXE": "Home", "EDAT": "65 a 69", "DOSI": 2, "n": 8223},
+        {"SEXE": "Home", "EDAT": "70 a 74", "DOSI": 1, "n": 51835},
+        {"SEXE": "Home", "EDAT": "70 a 74", "DOSI": 2, "n": 7572},
+        {"SEXE": "Home", "EDAT": "75 a 79", "DOSI": 1, "n": 105221},
+        {"SEXE": "Home", "EDAT": "75 a 79", "DOSI": 2, "n": 9273},
+        {"SEXE": "Home", "EDAT": "80 o més", "DOSI": 1, "n": 153066},
+        {"SEXE": "Home", "EDAT": "80 o més", "DOSI": 2, "n": 111417},
+        {
+          "SEXE": "No classificat",
+          "EDAT": "No classificat",
+          "DOSI": 1,
+          "n": 3199
+        },
+        {
+          "SEXE": "No classificat",
+          "EDAT": "No classificat",
+          "DOSI": 2,
+          "n": 2173
+        }
+      ]
+    },
+    {
+      "name": "vaccinated_dose_1_Home",
+      "source": "vaccinated",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.DOSI === 1 && datum.SEXE === 'Home'"
+        }
+      ]
+    },
+    {
+      "name": "vaccinated_dose_2_Home",
+      "source": "vaccinated",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.DOSI === 2 && datum.SEXE === 'Home'"
+        }
+      ]
+    },
+    {
+      "name": "vaccinated_dose_1_Dona",
+      "source": "vaccinated",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.DOSI === 1 && datum.SEXE === 'Dona'"
+        }
+      ]
+    },
+    {
+      "name": "vaccinated_dose_2_Dona",
+      "source": "vaccinated",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.DOSI === 2 && datum.SEXE === 'Dona'"
+        }
+      ]
+    }
+  ],
+  "legends": [
+    {
+      "fill": "color",
+      "orient": "right",
+      "symbolType": "square",
+      "encode": {
+        "labels": {
+          "update": {
+            "text": {
+              "signal": "'Dosi ' + datum.value"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "range": {
+        "signal": "[colorDose1, colorDose2]"
+      },
+      "domain": {
+        "data": "vaccinated",
+        "field": "DOSI"
+      }
+    },
+    {
+      "name": "y",
+      "type": "band",
+      "range": [{"signal": "height"}, 0],
+      "round": true,
+      "domain": {"data": "ageGroups", "field": "Edat"},
+      "paddingInner": 0.1
+    }
+  ],
+  "marks": [
+    {
+      "type": "text",
+      "interactive": false,
+      "from": {"data": "ageGroups"},
+      "encode": {
+        "enter": {
+          "x": {"signal": "chartWidth + chartPad / 2"},
+          "y": {"scale": "y", "field": "Edat", "band": 0.5},
+          "text": {"field": "Edat"},
+          "baseline": {"value": "middle"},
+          "align": {"value": "center"},
+          "fill": {"value": "#666"}
+        }
+      }
+    },
+    {
+      "type": "group",
+      "encode": {"update": {"x": {"value": 0}, "height": {"signal": "height"}}},
+      "scales": [
+        {
+          "name": "x",
+          "type": "linear",
+          "range": [{"signal": "chartWidth"}, 0],
+          "nice": true,          
+          "domain": {"data": "population", "field": "value"}
+        }
+      ],
+      "axes": [
+        {
+          "orient": "bottom", 
+          "scale": "x", 
+          "format": "s", 
+          "title": "DONES", 
+          "tickCount": 8, 
+          "titlePadding": 25, 
+          "titleColor": "#222222", 
+          "titleFontSize": 12,
+          "labelColor": "#666",
+          "encode": {
+            "labels": {
+              "update": {
+                "text": {
+                  "signal": "datum.value === 0? '0':format(datum.value, '.0s')"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "marks": [       
+        {
+          "type": "rect",
+          "from": {"data": "females"},
+          "encode": {
+            "enter": {
+              "x": {"scale": "x", "field": "value"},
+              "x2": {"scale": "x", "value": 0},
+              "y": {"scale": "y", "field": "Edat"},
+              "height": {"scale": "y", "band": 1},
+              "fill": {"signal": "barColor"}
+            }
+          }
+        },
+        {
+          "type": "rect",
+          "from": {"data": "vaccinated_dose_1_Dona"},
+          "encode": {
+            "enter": {
+              "x": {"scale": "x", "field": "n"},
+              "x2": {"scale": "x", "value": 0},
+              "yc": {
+                "signal": "scale('y', datum.EDAT) + bandwidth('y')*0.5"
+              },
+              "height": {"scale": "y", "band": {"signal": "bandDose1"}},
+              "fill": {"signal": "colorDose1"}
+            }
+          }
+        },
+        {
+          "type": "rect",
+          "from": {"data": "vaccinated_dose_2_Dona"},
+          "encode": {
+            "enter": {
+              "x": {"scale": "x", "field": "n"},
+              "x2": {"scale": "x", "value": 0},
+              "yc": {
+                "signal": "scale('y', datum.EDAT) + bandwidth('y')*0.5"
+              },
+              "height": {"scale": "y", "band": {"signal": "bandDose2"}},
+              "fill": {"signal": "colorDose2"}
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {"data": "females"},
+          "encode": {
+            "enter": {
+              "x": {"signal": "scale('x', datum.value * 0.25)"},
+              "y": {"signal": "scale('y', datum.Edat)+(bandwidth('y')/2)"},
+              "fill": {"value": "white"},
+              "fillOpacity":{"signal": "shareOpacity"},
+              "size": {"signal": "shareSize"}
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {"data": "females"},
+          "encode": {
+            "enter": {
+              "x": {"signal": "scale('x', datum.value * 0.5)"},
+              "y": {"signal": "scale('y', datum.Edat)+(bandwidth('y')/2)"},
+              "fill": {"value": "white"},
+              "fillOpacity":{"signal": "shareOpacity"},
+              "size": {"signal": "shareSize"}
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {"data": "females"},
+          "encode": {
+            "enter": {
+              "x": {"signal": "scale('x', datum.value * 0.75)"},
+              "y": {"signal": "scale('y', datum.Edat)+(bandwidth('y')/2)"},
+              "fill": {"value": "white"},
+              "fillOpacity":{"signal": "shareOpacity"},
+              "size": {"signal": "shareSize"}
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "encode": {
+        "update": {
+          "x": {"signal": "chartWidth + chartPad"},
+          "height": {"signal": "height"}
+        }
+      },
+      "scales": [
+        {
+          "name": "x",
+          "type": "linear",
+          "range": [0, {"signal": "chartWidth"}],
+          "nice": true,
+          "zero": true,
+          "domain": {"data": "population", "field": "value"}
+        }
+      ],
+      "axes": [
+        {
+          "orient": "bottom", 
+          "scale": "x", 
+          "format": "s", 
+          "title": "HOMES",
+          "titleFontSize": 12,
+          "tickCount": 8,
+          "titlePadding": 25, 
+          "titleColor": "#222222", 
+          "labelColor": "#666",
+          "encode": {
+            "labels": {
+              "update": {
+                "text": {
+                  "signal": "datum.value === 0? '0':format(datum.value, '.0s')"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "marks": [        
+        {
+          "type": "rect",
+          "from": {"data": "males"},
+          "encode": {
+            "enter": {
+              "x": {"scale": "x", "field": "value"},
+              "x2": {"scale": "x", "value": 0},
+              "y": {"scale": "y", "field": "Edat"},
+              "height": {"scale": "y", "band": 1},
+              "fill": {"signal": "barColor"}
+            }
+          }
+        },       
+        {
+          "type": "rect",
+          "from": {"data": "vaccinated_dose_1_Home"},
+          "encode": {
+            "enter": {
+              "x": {"scale": "x", "field": "n"},
+              "x2": {"scale": "x", "value": 0},
+              "yc": {
+                "signal": "scale('y', datum.EDAT) + bandwidth('y')*0.5"
+              },
+              "height": {"scale": "y", "band": {"signal": "bandDose1"}},
+              "fill": {"signal": "colorDose1"}
+            }
+          }
+        },
+        {
+          "type": "rect",
+          "from": {"data": "vaccinated_dose_2_Home"},
+          "encode": {
+            "enter": {
+              "x": {"scale": "x", "field": "n"},
+              "x2": {"scale": "x", "value": 0},
+              "yc": {
+                "signal": "scale('y', datum.EDAT) + bandwidth('y')*0.5"
+              },
+              "height": {"scale": "y", "band": {"signal": "bandDose2"}},
+              "fill": {"signal": "colorDose2"}
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {"data": "males"},
+          "encode": {
+            "enter": {
+              "x": {"signal": "scale('x', datum.value * 0.25)"},
+              "y": {"signal": "scale('y', datum.Edat)+(bandwidth('y')/2)"},
+              "fill": {"value": "white"},
+              "fillOpacity":{"signal": "shareOpacity"},
+              "size": {"signal": "shareSize"}
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {"data": "males"},
+          "encode": {
+            "enter": {
+              "x": {"signal": "scale('x', datum.value * 0.5)"},
+              "y": {"signal": "scale('y', datum.Edat)+(bandwidth('y')/2)"},
+              "fill": {"value": "white"},
+              "fillOpacity":{"signal": "shareOpacity"},
+              "size": {"signal": "shareSize"}
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {"data": "males"},
+          "encode": {
+            "enter": {
+              "x": {"signal": "scale('x', datum.value * 0.75)"},
+              "y": {"signal": "scale('y', datum.Edat)+(bandwidth('y')/2)"},
+              "fill": {"value": "white"},
+              "fillOpacity":{"signal": "shareOpacity"},
+              "size": {"signal": "shareSize"}
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
