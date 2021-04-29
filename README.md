@@ -1,5 +1,6 @@
 ## Gràfic amb dades de la piràmide de població a Catalunya i el progrés de vacunació de la Covid-10 a data 26/04/2020
 
+![alt text](https://github.com/XavierGimenez/vacunacio-covid-19-catalunya/blob/master/visualization_cat.svg "Vacunació per al COVID-19 per franja d'edat")
 Les dades d'estimació de població pertanyen al [Institut d'Estadística de Catalunya](https://www.idescat.cat/pub/?id=ep&n=9124).
 
 Les dades de vacunació pertanyen al [Departament de Salut de la Generalitat](https://dadescovid.cat/descarregues).
